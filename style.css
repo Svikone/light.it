@@ -1,0 +1,78 @@
+body{
+	margin:0px;
+}
+form{
+	margin: auto;
+    max-width: 190px;
+}
+.Filling-container{
+	padding-top:20px;
+}
+.Filling-container input{
+	width: 186px;
+	display: flex;
+	text-align: center;
+    max-width: 186px;
+}
+#map{
+	margin: auto;
+	max-width: 800px;
+	height: 370px;
+	border: 2px solid rgba(66,68,66,0.3);
+}
+.Filling-container p{
+	padding: 5px;
+	text-align: center;
+	margin: 0px;
+	font-family:Roboto, Arial, sans-serif;
+	color: #525252;
+	cursor: default;
+	/*padding-top: 30px;*/
+}
+.Filling-container .submit{
+	text-align: center;
+	padding: 5px;
+	font-family:Roboto, Arial, sans-serif;
+	color: #525252;
+	}
+.Filling-container .submit:hover{
+	background: rgba(66,68,66,0.3);
+	cursor:pointer;
+}
+.container{
+	margin:auto;
+	max-width: 800px;
+	border-top: 2px solid rgba(66,68,66,0.3);
+	flex-wrap: wrap;
+    display: flex;
+}
+.container h2{
+	width: 100%;
+}
+.logo{
+	font-size: 30px;
+	padding: 5px;
+    background: rgba(66,68,66,0.3);
+    text-align: center;
+	font-family:Roboto, Arial, sans-serif;
+	cursor: default;
+}
+.hide{
+	visibility: hidden;
+}
+.qwe:hover{
+	background: rgba(66,68,66,0.3);
+}
+.qwe{
+	display: flex;
+	align-items: center;
+	padding: 5px;
+}
+.qwe h3{
+	max-width: 89px;
+}
+@media (min-height: 680px), screen and (orientation: portrait){
+    .container{
+    	flex-direction: column;
+	}
+}
