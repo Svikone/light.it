@@ -76,3 +76,7 @@ form{
     	flex-direction: column;
 	}
 }
+.container .item{
+	display: block;
+	width:100%;
+}
