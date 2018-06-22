@@ -2,6 +2,7 @@
 <html>
 	<head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>weather</title>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
 		<script src="jquery.min.js"></script>
@@ -12,7 +13,7 @@
 		<form action="">
 			<div class="Filling-container">
 				<p>Введите город</p>
-				<input required pattern="\D"  type="search" placeholder="Город" id="search" autofocus=""  value="Hurzuf">
+				<input required pattern="\D"  type="search" placeholder="Город" id="search" autofocus="">
 				<p>Введите Дату</p>
 				<input type="date" value="date" id = "date">
 				<div class="submit">Отправить</div>
@@ -20,15 +21,17 @@
 		</form>
 		<div class="container">
 			<div class="days"></div>
+
+			<div class="weather"></div>
 		</div>
 		<div id="map"></div>
 		<div class="template"></div>
 		<div class = "item_template">
 			<div class="time"></div>
 			<img></img>
-			<div class="pressure"></div>
-			<div class="humidity"></div>
-			<div class="temp"></div>
+			<div class="pressure">Давление, мм:</div>
+			<div class="humidity">Влажность, %:</div>
+			<div class="temp">Температура, &#176;:</div>
 		</div>
 		<script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_14VszYiw4ZNPk06EH91C9ZM-t9CQnaU&callback=initMap">

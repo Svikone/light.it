@@ -1,5 +1,4 @@
 function initMap(x,y,title) {
-
 	if (x==undefined && y==undefined)
 	 x=50.45, y=30.523, title='';
 	var map = new google.maps.Map(document.getElementById('map'), {
@@ -13,7 +12,7 @@ function initMap(x,y,title) {
 });
 
 }
-var days = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
+var days = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб",];
 $(document).ready(function(){
     $(".submit").click(function(){
         $('.day').remove();
@@ -25,11 +24,24 @@ $(document).ready(function(){
             "&appid=e6980ce720b2ebbb8d9d1d9a24796c41",
             type:"GET",
         }).done(function(data){
+            var item = $('.item_template').clone();
+            item.removeClass('item_template');
+            item.addClass('item');
+            item.find('.time').append(data.list[0].dt_txt);
+            item.find('img').attr('src','https://openweathermap.org/img/w/'+data.list[0].weather[0].icon+'.png');
+            item.find('.pressure').append(Math.ceil(data.list[0].main.pressure*0.00750063755419211*100));
+            item.find('.humidity').append(data.list[0].main.humidity);
+            item.find('.temp').append(Math.floor(data.list[0].main.temp-273));
+            $('.weather').append(item);
+             var day = $('.template').clone();
+            day.removeClass('template');
+            day.addClass('day');
+            day.html(days[parseTime(data.list[0].dt,"day")]);
+            day.attr('data-id',parseTime(data.list[0].dt,"delta_time"));
+            $('.days').append(day);
             var old = parseTime(data.list[0].dt,"delta_time");
-            //  console.log(old)
             for(i in data.list){
                 if(parseTime(data.list[i].dt,"delta_time") != old){
-                //  console.log(parseTime(data.list[i].dt));
                     var day = $('.template').clone();
                     day.removeClass('template');
                     day.addClass('day');
@@ -39,7 +51,6 @@ $(document).ready(function(){
                     old = parseTime(data.list[i].dt,"delta_time");
                 }
             }
-
             $('.day').click(function(){
                 $('.item').remove();
                 var id = $(this).attr('data-id');
@@ -48,12 +59,12 @@ $(document).ready(function(){
                         var item = $('.item_template').clone();
                         item.removeClass('item_template');
                         item.addClass('item');
-                        item.find('.time').html(data.list[i].dt_txt);
+                        item.find('.time').append(data.list[i].dt_txt);
                         item.find('img').attr('src','https://openweathermap.org/img/w/'+data.list[i].weather[0].icon+'.png');
-                        item.find('.pressure').html(Math.ceil(data.list[i].main.pressure*0.00750063755419211*100));
-                        item.find('.humidity').html(data.list[i].main.humidity);
-                        item.find('.temp').html(Math.floor(data.list[i].main.temp-273));
-                        $('.container').append(item);
+                        item.find('.pressure').append(Math.ceil(data.list[i].main.pressure*0.00750063755419211*100));
+                        item.find('.humidity').append(data.list[i].main.humidity);
+                        item.find('.temp').append(Math.floor(data.list[i].main.temp-273));
+                        $('.weather').append(item);
                     }
                 }
             })
@@ -72,12 +83,10 @@ $(document).ready(function(){
     }
     }); 
 });
-
-
 function parseTime(dt,status){
     switch(status){
         case "delta_time":
-            var day = new Date(dt*1000).getDate();
+            var day = new Date(dt*1000).getUTCDate();
             var month = new Date(dt*1000).getMonth();
             console.log(day + "-" + month)
             return day + "-" + month; 
