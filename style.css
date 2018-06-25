@@ -53,11 +53,11 @@ form{
 	font-family:Roboto, Arial, sans-serif;
 	cursor: default;
 }
-@media (min-height: 680px), screen and (orientation: portrait){
+@media screen and (orientation:portrait) {
     .container, .weather{
-    	flex-direction: column;
-	}
-}
+     flex-direction: column;
+ }
+ }
 .container .item{
 	padding: 5px;
     margin-left: 5px;
