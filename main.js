@@ -18,21 +18,13 @@ $(document).ready(function(){
         $('.day').remove();
         $('.item').remove();
         var city = $("#search").val();
+        var date = $("#date").val();
         if(city){
         $.ajax({
             url:'http://api.openweathermap.org/data/2.5/forecast?q=' + city +
             "&appid=e6980ce720b2ebbb8d9d1d9a24796c41",
             type:"GET",
         }).done(function(data){
-            var item = $('.item_template').clone();
-            item.removeClass('item_template');
-            item.addClass('item');
-            item.find('.time').append(data.list[0].dt_txt);
-            item.find('img').attr('src','https://openweathermap.org/img/w/'+data.list[0].weather[0].icon+'.png');
-            item.find('.pressure').append(Math.ceil(data.list[0].main.pressure*0.00750063755419211*100));
-            item.find('.humidity').append(data.list[0].main.humidity);
-            item.find('.temp').append(Math.floor(data.list[0].main.temp-273));
-            $('.weather').append(item);
              var day = $('.template').clone();
             day.removeClass('template');
             day.addClass('day');
@@ -41,6 +33,17 @@ $(document).ready(function(){
             $('.days').append(day);
             var old = parseTime(data.list[0].dt,"delta_time");
             for(i in data.list){
+                if(parseTime(date,"date") == parseTime(data.list[i].dt,"delta_time")){
+                    var item = $('.item_template').clone();
+                    item.removeClass('item_template');
+                    item.addClass('item');
+                    item.find('.time').append(data.list[i].dt_txt);
+                    item.find('img').attr('src','https://openweathermap.org/img/w/'+data.list[i].weather[0].icon+'.png');
+                    item.find('.pressure').append(Math.ceil(data.list[i].main.pressure*0.00750063755419211*100));
+                    item.find('.humidity').append(data.list[i].main.humidity);
+                    item.find('.temp').append(Math.floor(data.list[i].main.temp-273));
+                    $('.weather').append(item);
+                }
                 if(parseTime(data.list[i].dt,"delta_time") != old){
                     var day = $('.template').clone();
                     day.removeClass('template');
@@ -87,14 +90,18 @@ function parseTime(dt,status){
     switch(status){
         case "delta_time":
             var day = new Date(dt*1000).getUTCDate();
-            var month = new Date(dt*1000).getMonth();
-            console.log(day + "-" + month)
+            var month = new Date(dt*1000).getMonth()+1;
             return day + "-" + month; 
         break;
 
         case "day":
-            console.log(new Date(dt*1000).getDay())
             return day = new Date(dt*1000).getDay();
+        break;
+
+        case "date":
+            var day = new Date(dt).getDate();
+            var month = new Date(dt).getMonth()+1;
+            return day + "-" + month;
         break;
     }
 }
